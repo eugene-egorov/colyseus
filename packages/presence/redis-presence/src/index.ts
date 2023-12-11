@@ -166,8 +166,9 @@ export class RedisPresence implements Presence {
 
     protected handleSubscription = (channel, message) => {
         if (this.subscriptions[channel]) {
-          for (let i = 0, l = this.subscriptions[channel].length; i < l; i++) {
-            this.subscriptions[channel][i](JSON.parse(message));
+          const subsCopy = [...this.subscriptions[channel]]
+          for (let i = 0, l = subsCopy.length; i < l; i++) {
+            subsCopy[i](JSON.parse(message));
           }
         }
     }
